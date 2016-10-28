@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 from tinydb.storages import MemoryStorage
 import ast
-class db:
+class db_mgm:
 	def __init__(self):
 		self.db = TinyDB(storage=MemoryStorage)
 		self.playbooks = Query()
@@ -17,7 +17,7 @@ class db:
 			response = response[0]
 			return response
 		else:
-			return None
+			return 'Error'
 	
 
 
