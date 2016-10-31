@@ -1,1 +1,2 @@
-{'name':'test1','params':[{'-i':'192.168.1.8'},{}],'args':['arg1','arg2']}
+{'name':'test1','params':[{'-i':'192.168.1.8'},{}],'args':['arg1','arg2'],'password':'123456'}
+{'name':'server_deploy', 'params':[{'-i':'hosts'},{'--extra-vars':'vars'},{'--private-key':'pkey'}], 'args':['--ask-become-pass']}

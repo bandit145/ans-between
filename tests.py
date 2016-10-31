@@ -1,4 +1,4 @@
-#!
+#!/usr/bin/env python3
 import unittest
 from src.db import *
 from src.dictops import *
@@ -9,7 +9,7 @@ class TestDB(unittest.TestCase):
 		self.dbdict = self.testdb.db_lookup('test1')
 
 	def test_createdb(self):
-		#return dict from db create function and test that thr last test is in it
+		#return dict from db create function and test that the last test is in it
 		self.assertTrue(self.dbdict['name'] == 'test1')
 
 	def test_params(self):
@@ -42,7 +42,7 @@ class TestDM(unittest.TestCase):#dict mgmt
 		#This will be looped through pulling out the info and popping 
 		#it into the dict template from the db
 		self.assertTrue(self.dictmgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}, {'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}) == 'ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ')
-	
+		#TODO: test looking for password in password dict	
 
 
 if __name__=='__main__':

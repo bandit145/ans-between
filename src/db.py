@@ -19,7 +19,3 @@ class db_mgm:
 		else:
 			return 'Error'
 	
-
-
-
-

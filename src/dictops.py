@@ -7,7 +7,11 @@ class dict_mgm:
 			command+=data['name']+' '
 			command+= self.sort_params(data['params'])
 			command+= self.sort_args(data['args'])
-			return command
+			if 'password' in data.keys():
+				password = data['password']
+			else:
+				password = None
+			return command, password
 		else:
 			return 'Error'	
 			
