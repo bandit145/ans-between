@@ -23,17 +23,17 @@ class TestDB(unittest.TestCase):
 class TestDM(unittest.TestCase):#dict mgmt
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.dictmgm  = dict_mgm()#dictionary passed to fill up
+		self#dictionary passed to fill up
 	#need shit down here boy
 	def test_datacheck(self):
-		self.assertTrue(self.dictmgm.data_check({'name':'test1','params':[{'-i','thinginign'},{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'OK')
-		self.assertTrue(self.dictmgm.data_check({'name':'test1','params':[{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'Error')
+		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{'-i','thinginign'},{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'OK')
+		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'Error')
 		#eventually run through and try every type of broken dict possible
 	def test_sortparams(self):
-		self.assertTrue(self.dictmgm.sort_params([{'-i':'inv'},{'-i':'otherinv'}]) == '-i inv -i otherinv ' )
+		self.assertTrue(dict_mgm.sort_params([{'-i':'inv'},{'-i':'otherinv'}]) == '-i inv -i otherinv ' )
 
 	def test_sortargs(self):
-		self.assertTrue(self.dictmgm.sort_args(['arg1','arg2']) == 'arg1 arg2 ')
+		self.assertTrue(dict_mgm.sort_args(['arg1','arg2']) == 'arg1 arg2 ')
 
 	def test_insert(self):
 		#defined in the schema for each book will be the params/args empty to be filled in by request
@@ -41,7 +41,8 @@ class TestDM(unittest.TestCase):#dict mgmt
 		#{'param':'info', 'param':'info'}
 		#This will be looped through pulling out the info and popping 
 		#it into the dict template from the db
-		self.assertTrue(self.dictmgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}, {'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}) == 'ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ')
+		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}) == ('ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ', None))
+		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'}) == ('ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ', '123456'))
 		#TODO: test looking for password in password dict	
 
 
