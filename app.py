@@ -4,7 +4,6 @@ from src.db import *
 from src.dictops import *
 import json
 import subprocess
-import hashlib
 from config import *
 import logging
 logging.basicConfig(level=logging.DEBUG)
