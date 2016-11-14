@@ -4,3 +4,7 @@ host = 'localhost'
 port = '8080'
 #authtentication key for users(Not secure, looking at switiching to hashing)
 auth = '123456' 
+#default is gunicorn
+server= 'gunicorn'
+#workers
+workers=4

@@ -65,4 +65,4 @@ def run_job():
 
 if __name__ == '__main__':
 	db = db_mgm()
-	run(host=host, port=port)#might move to config file
+	run(host=host, port=port, server=server, workers=workers)#might move to config file
