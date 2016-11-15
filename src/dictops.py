@@ -2,9 +2,9 @@ import logging
 class dict_mgm:
 	logging.basicConfig(level=logging.DEBUG)
 	#creates ansible command to run
-	def make_play(data,db_data):
+	def make_play(data,db_data,location):
 		if dict_mgm.data_check(data, db_data) == 'OK':
-			command = 'ansible_playbook '
+			command = 'ansible_playbook {location}'.format(location=location)
 			#did and incredi bad if else thing
 			command+=data['name']+' '
 			command+= dict_mgm.sort_params(data['params'])

@@ -14,8 +14,9 @@ def check_auth(sent_auth): #Checks auth token
 		return 'Error'
 
 def run_command(command, password): #runs built command and determines if become password needs to be used
+	loggin.debug(command)
 	process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-	if '-k' in command or '--ask-sudo-pass':
+	if '-k' in command or '--ask-sudo-pass' in command or '-K' in command or '--ask-password' in command:
 		stdout = process.communicate(input=password+'\n')
 	else:
 		stdout = process.communicate()
@@ -65,4 +66,4 @@ def run_job():
 
 if __name__ == '__main__':
 	db = db_mgm()
-	run(host=host, port=port, server=server, workers=workers)#might move to config file
+	run(host=host, port=port, server=server, workers=workers, ciphers=ciphers)#might move to config file
