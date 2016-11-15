@@ -34,7 +34,7 @@ class dict_mgm:
 		else:
 			return 'OK'
 
-	def sort_params(self,params):#deals with param dics
+	def sort_params(self,params):#deals with param dicts
 		command = '' 
 		for item in params:
 			keys= list(item.keys())

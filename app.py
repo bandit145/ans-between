@@ -2,21 +2,21 @@
 from bottle import route, run, request, response
 from src.db import *
 from src.dictops import *
+import pexpect
 import json
 import subprocess
 
 def run_command(command, password):
-	process = subprocess.Popen(command, stdin=PIPE, stdout=PIPE)
-	if '-k' in command or '--ask-sudo-pass':
-		stdout = process.communicate(input=password+'\n')
-	else:
-		stdout = process.communicate()
+	process = pexpect.spawnu(command)
+	if '-K' in command or '--ask-sudo-pass' in command or '-k' in command or '--ask-pass' in command :
+		process.sendline(password)
+	process.logfile_read  = stdout
 	return stdout
 
 @route('/job', method='POST')
 def run_job():
-	job = request.json
-	job = json.load(job)
+	job = str(request.json)
+	job = json.loads(job)
 	db_playbook = db.db_lookup(job['name'])
 	if db_playbook != 'Error':
 		ans_command, password = dictmgm.make_play(job, db_playbook)
@@ -37,4 +37,4 @@ def run_job():
 if __name__ == '__main__':
 	db = db_mgm()
 	dictmgm = dict_mgm
-	run(host=0.0.0.0, port=80)#might move to config file
+	run(host='0.0.0.0', port=80)#might move to config file
