@@ -10,3 +10,4 @@ req = requests.post('http://localhost:8080/job',data=json.dumps({'name':'test1',
 print(req.content)
 #{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456','auth':'123456'}
 #{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456','auth':'123456'}
+# curl -X POST -H "Content-Type":"application/json" -d '{"name":"server_deploy.yml", "params":[{"-i":"192.168.1.34,"},{"--extra-vars":"host_name=meme-test"},{"--private-key":"pkey"}], "args":["--ask-become-pass"],"password":"test","auth":"123456"}' http://192.168.1.33:8080/job

@@ -4,23 +4,28 @@ class dict_mgm:
 	#creates ansible command to run
 	def make_play(data,db_data,location):
 		if dict_mgm.data_check(data, db_data) == 'OK':
-			command = 'ansible_playbook {location}'.format(location=location)
+			command = 'ansible-playbook {location}'.format(location=location)
 			#did and incredi bad if else thing
+			logging.debug(data.keys())
 			command+=data['name']+' '
-			command+= dict_mgm.sort_params(data['params'])
-			command+= dict_mgm.sort_args(data['args'])
+			if 'params' in data.keys():
+				command+= dict_mgm.sort_params(data['params'])
+			if 'args'in data.keys():
+				command+= dict_mgm.sort_args(data['args'])
 			if 'password' in data.keys():
 				password = data['password']
 			else:
 				password = None
+			logging.debug(command)
+			logging.debug(password)
 			return command, password
 		else:
 			return 'Error', None
 			
 	#check integrity of submitted data compared to its schema model
 	def data_check(data,db_data):
-		print(data)
-		print(db_data)
+		logging.debug(data)
+		logging.debug(db_data)
 		if len(data) != len(db_data):
 			logging.debug('triggered 1')
 			return 'Error'
@@ -32,15 +37,16 @@ class dict_mgm:
 		elif len(data.values()) != len(db_data.values()):
 			logging.debug('triggered 3')
 			return 'Error'
-		
+	
 		elif len(data['params']) != len(db_data['params']):
-			logging.debug('triggered 4')
-			return 'Error'
+				logging.debug('triggered 4')
+				return 'Error'
 
 		elif len(data['args']) != len(db_data['args']):
 			logging.debug('triggered 5')
 			return 'Error'
 		else:
+			logging.debug('OK')
 			return 'OK'
 
 	def sort_params(params):#deals with param dics
