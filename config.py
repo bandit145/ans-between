@@ -1,7 +1,7 @@
 #location of ansible playbooks
-location = 'ansible/'
+location = '/home/phil/'
 #host address local/127.0.0.1 for local or 0.0.0.0 for public
-host = 'localhost'
+host = '127.0.0.1'
 #port to bind to
 port = '8080'
 #authtentication key for users(Not secure, looking at switiching to hashing)

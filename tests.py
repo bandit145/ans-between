@@ -2,10 +2,12 @@
 import unittest
 from src.db import *
 from src.dictops import *
+from cel.tasks import run_command
 class TestDB(unittest.TestCase):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.testdb = db_mgm()
+		self.testdb.start_db()
 		self.dbdict = self.testdb.db_lookup('test1')
 
 	def test_createdb(self):
@@ -23,10 +25,10 @@ class TestDB(unittest.TestCase):
 class TestDM(unittest.TestCase):#dict mgmt
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self#dictionary passed to fill up
+	#dictionary passed to fill up
 	#need shit down here boy
 	def test_datacheck(self):
-		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{'-i','thinginign'},{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'OK')
+		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{'-i','192.168.1.34'},{}],'args':['arg1','arg2']},{'name':'test1','params':[{'-i':'192.168.1.34'},{}],'args':['arg1','arg2']}) == 'OK')
 		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'Error')
 		#eventually run through and try every type of broken dict possible
 	def test_sortparams(self):
@@ -41,9 +43,22 @@ class TestDM(unittest.TestCase):#dict mgmt
 		#{'param':'info', 'param':'info'}
 		#This will be looped through pulling out the info and popping 
 		#it into the dict template from the db
-		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']}) == ('ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ', None))
-		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'}) == ('ansible_playbook test1 -i 192.168.1.8 arg1 arg2 ', '123456'))
+		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2']},'/') == ('ansible-playbook /test1 -i 192.168.1.8 arg1 arg2 ', None))
+		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},'/') == ('ansible-playbook /test1 -i 192.168.1.8 arg1 arg2 ', '123456'))
 		#TODO: test looking for password in password dict	
+
+class celeryTest(unittest.TestCase):
+	#testing celery functions
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.db = db_mgm()
+		self.db.start_db()
+	def test_runcommand(self):
+		self.db.db_stdoutinput('placeholder')
+		run_command('echo test',None, '1', self.db)
+		print(self.db.db_completed('1')) 
+		#it gives proper output but it does not equal the test string
+		self.assertTrue(self.db.db_completed('1') == 'test')
 
 
 if __name__=='__main__':
