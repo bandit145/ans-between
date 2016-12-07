@@ -1,3 +1,4 @@
+#TODO: allow missing params and args lists to pass tests
 import logging
 class dict_mgm:
 	logging.basicConfig(level=logging.DEBUG)
@@ -54,6 +55,7 @@ class dict_mgm:
 		logging.debug('OK')
 		return 'OK'
 
+
 	def sort_params(params):#deals with param dics
 		command = '' 
 		for item in params:
@@ -63,7 +65,7 @@ class dict_mgm:
 			logging.debug(values)
 			command+=keys[0]+' '+values[0]+' '
 		return command
-	
+
 	def sort_args(args): #deals with args list
 		command = ''
 		for arg in args:
