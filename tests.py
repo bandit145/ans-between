@@ -26,11 +26,17 @@ class TestDM(unittest.TestCase):#dict mgmt
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 	#dictionary passed to fill up
-	#need shit down here boy
 	def test_datacheck(self):
 		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{'-i','192.168.1.34'},{}],'args':['arg1','arg2']},{'name':'test1','params':[{'-i':'192.168.1.34'},{}],'args':['arg1','arg2']}) == 'OK')
+		#test param eval
 		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg1','arg2']}) == 'Error')
+		#test args eval 
+		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{},{}],'args':['arg1','arg2']},{'name':'test1','params':[{},{}],'args':['arg2']}) == 'Error')
 		#eventually run through and try every type of broken dict possible
+		#test with no params
+		self.assertTrue(dict_mgm.data_check({'name':'test1','args':['arg1','arg2']},{'name':'test1','args':['arg1','arg2']}) == 'OK')
+		#no args test
+		self.assertTrue(dict_mgm.data_check({'name':'test1','params':[{},{}]},{'name':'test1','params':[{},{}]}) == 'OK')
 	def test_sortparams(self):
 		self.assertTrue(dict_mgm.sort_params([{'-i':'inv'},{'-i':'otherinv'}]) == '-i inv -i otherinv ' )
 
@@ -47,6 +53,7 @@ class TestDM(unittest.TestCase):#dict mgmt
 		self.assertTrue(dict_mgm.make_play({'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},{'name':'test1','params':[{'-i':'192.168.1.8'}],'args':['arg1','arg2'],'password':'123456'},'/') == ('ansible-playbook /test1 -i 192.168.1.8 arg1 arg2 ', '123456'))
 		#TODO: test looking for password in password dict	
 
+
 class celeryTest(unittest.TestCase):
 	#testing celery functions
 	def __init__(self, *args, **kwargs):
@@ -56,9 +63,9 @@ class celeryTest(unittest.TestCase):
 	def test_runcommand(self):
 		self.db.db_stdoutinput('placeholder')
 		run_command('echo test',None, '1', self.db)
-		print(self.db.db_completed('1')) 
+		#print(':'.join(['{:02x}'.format(ord(x)) for x in self.db.db_completed('1')])) 
 		#it gives proper output but it does not equal the test string
-		self.assertTrue(self.db.db_completed('1') == 'test')
+		self.assertTrue(self.db.db_completed('1') == 'test\r\n')
 
 
 if __name__=='__main__':

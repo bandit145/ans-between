@@ -10,7 +10,7 @@ class dict_mgm:
 			command+=data['name']+' '
 			if 'params' in data.keys():
 				command+= dict_mgm.sort_params(data['params'])
-			if 'args'in data.keys():
+			if 'args' in data.keys():
 				command+= dict_mgm.sort_args(data['args'])
 			if 'password' in data.keys():
 				password = data['password']
@@ -30,24 +30,29 @@ class dict_mgm:
 			logging.debug('triggered 1')
 			return 'Error'
 
-		elif data.keys() != db_data.keys():
+		if data.keys() != db_data.keys():
 			logging.debug('triggered 2')
 			return 'Error'
 		
-		elif len(data.values()) != len(db_data.values()):
+		if len(data.values()) != len(db_data.values()):
 			logging.debug('triggered 3')
 			return 'Error'
-	
-		elif len(data['params']) != len(db_data['params']):
+		#for playbooks that have no params/args
+		try:
+			if len(data['params']) != len(db_data['params']):
 				logging.debug('triggered 4')
 				return 'Error'
+		except KeyError:
+			pass
 
-		elif len(data['args']) != len(db_data['args']):
-			logging.debug('triggered 5')
-			return 'Error'
-		else:
-			logging.debug('OK')
-			return 'OK'
+		try:
+			if len(data['args']) != len(db_data['args']):
+				logging.debug('triggered 5')
+				return 'Error'
+		except KeyError:
+			pass
+		logging.debug('OK')
+		return 'OK'
 
 	def sort_params(params):#deals with param dics
 		command = '' 
