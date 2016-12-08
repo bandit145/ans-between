@@ -1,6 +1,6 @@
 #location of ansible playbooks
 location = '/home/phil/'
-#host address local/127.0.0.1 for local or 0.0.0.0 for public
+#host address local/127.0.0.1 for local or 0.0.0.0 for external use
 host = '127.0.0.1'
 #port to bind to
 port = '8080'
@@ -10,5 +10,3 @@ auth = '123456'
 server= 'gunicorn'
 #workers
 workers=4
-
-ciphers='TLSv1'

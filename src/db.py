@@ -9,7 +9,7 @@ class db_mgm:
 		
 	def start_db(self):
 		#load db
-		with open('schema') as schema:#Todo ignore # for comments in schema
+		with open('schema') as schema:#Todo: ignore # for comments in schema
 			for line in schema:
 				self.db.insert(ast.literal_eval(line))
 
