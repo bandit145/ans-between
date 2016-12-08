@@ -39,8 +39,8 @@ def run_job():
 			ans_command, password = dict_mgm.make_play(job, db_playbook, location) #parse dict into command and return command and password
 			if ans_command != 'Error': #if make_play did not fail continue
 				items = db.db_outputid()
-				task = run_command.delay(ans_command, password, items)
 				db.db_stdoutinput('No current stdout')
+				task = run_command.delay(ans_command, password, items)
 				return response_build(202,{'taskid':items})
 			else: #handles datacheck error
 				print('[X] error in datacheck')

@@ -9,7 +9,7 @@ def run_command(command, password, taskid, *args): #runs built command and deter
 	rules = ['-k' in command,
 			'--ask-sudo-pass' in command,
 			'-K' in command,
-			'--ask-password' in command]
+			'--ask-pass' in command]
 	logging.debug(command)
 	logging.debug(password)
 	process = pexpect.spawnu(command)
