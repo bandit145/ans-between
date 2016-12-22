@@ -68,5 +68,5 @@ def return_id(taskid):
 
 atexit.register(purge_db)
 if __name__ == '__main__':
-	db.start_db()
+	db.start_db(schemaloc)
 	run(host=host, port=port,server=server, workers=workers)#might move to config file

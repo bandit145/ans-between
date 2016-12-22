@@ -2,14 +2,14 @@ from tinydb import TinyDB, Query
 from tinydb.storages import MemoryStorage
 import ast
 class db_mgm:
-	def __init__(self):
-		self.db = TinyDB('database/db.json')
+	def __init__(self, dbdir):
+		self.db = TinyDB(dbdir+'database/db.json')
 		self.output = self.db.table('output')
 		self.query = Query()
 		
-	def start_db(self):
+	def start_db(self, schemaloc):
 		#load db
-		with open('schema') as schema:#Todo: ignore # for comments in schema
+		with open(schemaloc+'schema') as schema:#Todo: ignore # for comments in schema
 			for line in schema:
 				self.db.insert(ast.literal_eval(line))
 

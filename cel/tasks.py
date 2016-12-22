@@ -3,9 +3,9 @@ from cel.cel import task
 from src import db
 import pexpect
 import logging
-@task.task
 #*args is testing hook
 logging.basicConfig(level=logging.INFO)
+@task.task
 def run_command(command, password, taskid, *args): #runs built command and determines if become password needs to be used
 	rules = ['-k' in command,
 			'--ask-sudo-pass' in command,

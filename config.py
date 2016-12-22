@@ -10,3 +10,7 @@ auth = '123456'
 server= 'gunicorn'
 #workers
 workers=4
+
+dbdir="/home/phil/git/ans-between/"
+
+schemaloc="/home/phil/git/ans-between/"
