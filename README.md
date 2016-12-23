@@ -1,5 +1,6 @@
 # ans-between
 NOTE: ans-between is still relatively untested
+
 ans-between is a server that takes web requests with ansible commands in them and runs the ansible command, sorting its feedback for retreival.
 
 ##Setup
@@ -22,14 +23,14 @@ Configuring ans-between is fairly simple.(Soon to be simpler)
 ##Usage
 
 ######Communicating with ans-between
-ans-between accepts json web requests, to submit a job you post to "ipaddr"/job.
-You will recieve a taskid, when you want to retrieve the output of that ansible run you get to "ipaddr"/tasks/(taskid)
+ans-between accepts json web requests, to submit a job you POST to "ipaddr"/job.
+You will recieve a taskid, when you want to retrieve the output of that ansible run you GET to "ipaddr"/tasks/(taskid)
 
 json job request:
 
 {"name":'"taskname.yml","params":[{"-i":"192.167.8.9"},{"--extra-vars":"ayy"}],"args":["arg1","arg2"],"password":"testpass", "auth":"123456"}
 
-This data all corresponds to the schema template discussed below, the one difference is the "auth" attribute. This is the password you set in the ocnfig.py file of ans-between to limit access to it. 
+This data all corresponds to the schema template discussed below, the one difference is the "auth" attribute. This is the password you set in the config.py file of ans-between to limit access to the program. 
 
 ######Entering schema data
 The schema folder is where you create the templates for the ansible jobs, it supports python style commenting (#comment). You enter the template as a python dictionary:
