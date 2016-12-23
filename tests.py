@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import unittest
 from src.db import *
+from config import dbdir, schemaloc
 from src.dictops import *
 from cel.tasks import run_command
 class TestDB(unittest.TestCase):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.testdb = db_mgm()
-		self.testdb.start_db()
+		self.testdb = db_mgm(dbdir)
+		self.testdb.start_db(schemaloc)
 		self.dbdict = self.testdb.db_lookup('test1')
 
 	def test_createdb(self):
@@ -58,8 +59,8 @@ class celeryTest(unittest.TestCase):
 	#testing celery functions
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.db = db_mgm()
-		self.db.start_db()
+		self.db = db_mgm(dbdir)
+		self.db.start_db(schemaloc)
 	def test_runcommand(self):
 		self.db.db_stdoutinput('placeholder')
 		run_command('echo test',None, '1', self.db)

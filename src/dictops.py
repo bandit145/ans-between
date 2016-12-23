@@ -1,7 +1,6 @@
 #TODO: allow missing params and args lists to pass tests
-import logging
+from src import logging
 class dict_mgm:
-	logging.basicConfig(level=logging.DEBUG)
 	#creates ansible command to run
 	def make_play(data,db_data,location):
 		if dict_mgm.data_check(data, db_data) == 'OK':

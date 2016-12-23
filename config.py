@@ -8,8 +8,6 @@ port = '8080'
 auth = '123456' 
 #default is gunicorn
 server= 'gunicorn'
-#workers
-workers=4
 
 dbdir="/home/phil/git/ans-between/"
 

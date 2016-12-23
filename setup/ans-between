@@ -29,7 +29,7 @@ start(){
     echo "$PROG is already running!" #1>$2
     exit 1
   else
-    $PROG_PATH >> /var/log/$PROG 2>&1 &
+    $PROG_PATH &
     echo "$PROG started"
     touch "$PID_PATH"
   fi
@@ -37,7 +37,7 @@ start(){
 stop(){
   #echo "$PID_PATH/$PROG.pid"
   if [ -e "$PID_PATH" ]; then
-    killall "python3"
+    pkill -f  "gunicorn"
     rm "$PID_PATH"
     echo "PROG stopped"
   else

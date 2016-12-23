@@ -1,6 +1,8 @@
 from tinydb import TinyDB, Query
 from tinydb.storages import MemoryStorage
+from src import logging
 import ast
+import sys
 class db_mgm:
 	def __init__(self, dbdir):
 		self.db = TinyDB(dbdir+'database/db.json')
@@ -8,11 +10,16 @@ class db_mgm:
 		self.query = Query()
 		
 	def start_db(self, schemaloc):
-		#load db
+		#load data
 		with open(schemaloc+'schema') as schema:#Todo: ignore # for comments in schema
-			for line in schema:
-				self.db.insert(ast.literal_eval(line))
-
+			try:
+				for line in schema:
+					if '#' not in line[0]:
+						self.db.insert(ast.literal_eval(line))
+			except ValueError:
+				logging.error('[X] Malformed Schema data on line \n'+line)
+				print('[X] Malformed Schema data on line \n'+line)
+				sys.exit()
 	def db_lookup(self,playbook):
 		#grab playbook
 		if self.db.contains(self.query.name == playbook):
