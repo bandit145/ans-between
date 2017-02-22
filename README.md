@@ -39,7 +39,7 @@ The schema folder is where you create the templates for the ansible jobs, it sup
 - args: Typically one off ansible "arguments"
 - name: Name of the playbook
 
-{'name':'taskname.yml','params':[{'-i':'inventory'},{'--extra-vars':'ayy'}],'args':['arg1','arg2'],'password':'sudo pass etc.'} (If you are passing a password to ans-between be sure celery logging is not set to debug and that you have configured ans-between behind and https proxy)
+{'name':'taskname.yml','params':[{'-i':'inventory'},{'--extra-vars':'ayy'}],'args':['arg1','arg2'],'password':'sudo pass etc.'} (If you are passing a password to ans-between be sure celery logging is not set to debug and that you have configured ans-between behind an https proxy)
 
 It is important to note that the schema entry does not need to contain the actual data as it is being submitted by user web request, the schema entry is just a bare bones template for basic data verification.
 For example, here is my actual job submission:
