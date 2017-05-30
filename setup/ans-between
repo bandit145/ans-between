@@ -21,7 +21,7 @@
 PROG="ans-between"
 DESC="ans-between"
 #path to app
-PROG_PATH=/home/phil/git/ans-between/app.py
+PROG_PATH="/opt/ans-between/app.py"
 PID_PATH="/var/run/$PROG.pid"
 start(){
   #PIDS are process id files to id if program is running

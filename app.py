@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!venv/bin/python3
 from bottle import route, run, request, response
 from src import db, dict_mgm, logging
 import json
@@ -25,10 +25,9 @@ def check_auth(sent_auth): #Checks auth token
 def run_job():
 	job = request.json
 	try:
-		if check_auth(job['auth']) == 'Error': #check auth token, if it errs throw a 403 and end
+		if check_auth(request.headers.get('Authorization')) == 'Error': #check auth token, if it errs throw a 403 and end
 			return response_build(403,{'error':'Authorization incorrect'})
 		logging.debug(job)
-		del job['auth'] #remove auth so sent data passes data check
 		logging.debug('passed auth')
 		db_playbook = db.db_lookup(job['name']) #data check
 		logging.debug('passed name lookup')

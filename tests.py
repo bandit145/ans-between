@@ -65,7 +65,6 @@ class celeryTest(unittest.TestCase):
 		self.db.db_stdoutinput('placeholder')
 		run_command('echo test',None, '1', self.db)
 		#print(':'.join(['{:02x}'.format(ord(x)) for x in self.db.db_completed('1')])) 
-		#it gives proper output but it does not equal the test string
 		self.assertTrue(self.db.db_completed('1') == 'test\r\n')
 
 

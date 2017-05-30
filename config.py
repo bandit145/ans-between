@@ -1,5 +1,5 @@
 #location of ansible playbooks
-location = '/home/phil/'
+location = '/opt/ans-between'
 #host address local/127.0.0.1 for local or 0.0.0.0 for external use
 host = '127.0.0.1'
 #port to bind to
@@ -9,6 +9,6 @@ auth = '123456'
 #default is gunicorn
 server= 'gunicorn'
 
-dbdir="/home/phil/git/ans-between/"
+dbdir="/opt/ans-between/"
 
-schemaloc="/home/phil/git/ans-between/"
+schemaloc="/opt/ans-between/"

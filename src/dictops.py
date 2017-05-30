@@ -5,7 +5,7 @@ class dict_mgm:
 	def make_play(data,db_data,location):
 		if dict_mgm.data_check(data, db_data) == 'OK':
 			command = 'ansible-playbook {location}'.format(location=location)
-			#did and incredi bad if else thing
+			#did an incredi bad if else thing
 			logging.debug(data.keys())
 			command+=data['name']+' '
 			if 'params' in data.keys():
@@ -23,6 +23,7 @@ class dict_mgm:
 			return 'Error', None
 			
 	#check integrity of submitted data compared to its schema model
+	#replace stupid try/catch with if data.keys() contains 'whatever'
 	def data_check(data,db_data):
 		logging.debug(data)
 		logging.debug(db_data)
@@ -38,19 +39,14 @@ class dict_mgm:
 			logging.debug('triggered 3')
 			return 'Error'
 		#for playbooks that have no params/args
-		try:
-			if len(data['params']) != len(db_data['params']):
-				logging.debug('triggered 4')
-				return 'Error'
-		except KeyError:
-			pass
+		if ('params' in data.keys()) and (len(data['params']) != len(db_data['params'])):
+			logging.debug('triggered 4')
+			return 'Error'
 
-		try:
-			if len(data['args']) != len(db_data['args']):
-				logging.debug('triggered 5')
-				return 'Error'
-		except KeyError:
-			pass
+		if ('args' in data.keys()) and (len(data['args']) != len(db_data['args'])):
+			logging.debug('triggered 5')
+			return 'Error'
+
 		logging.debug('OK')
 		return 'OK'
 
