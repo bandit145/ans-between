@@ -21,7 +21,7 @@
 PROG="ans-between"
 DESC="ans-between"
 #path to app
-PROG_PATH="/opt/ans-between/app.py"
+PROG_PATH="/opt/ans-between/ans-between.py"
 PID_PATH="/var/run/$PROG.pid"
 start(){
   #PIDS are process id files to id if program is running
@@ -37,7 +37,7 @@ start(){
 stop(){
   #echo "$PID_PATH/$PROG.pid"
   if [ -e "$PID_PATH" ]; then
-    pkill -f  "gunicorn"
+    pkill -f  "ans-between.py"
     rm "$PID_PATH"
     echo "PROG stopped"
   else
