@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+#vagrant config
+.vagrant/
+
 # Distribution / packaging
 .Python
 env/

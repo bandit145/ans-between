@@ -24,8 +24,8 @@ function place_configs(){
 	cp /opt/ans-between/setup/ans-between /etc/init.d/
 	cp /opt/ans-between/setup/celeryd /etc/init.d/
 	cp /opt/ans-between/setup/celeryd.conf /wherever
-	chmod +x /opt/etc/init.d/ans-between
-	chmod +x /opt/etc/init.d/celeryd
+	chmod +x /etc/init.d/ans-between
+	chmod +x /etc/init.d/celeryd
 }
 
 function make_python(){
@@ -46,6 +46,8 @@ function make_python(){
 function git_clone(){
 	if [ ! -d $INSTALLLOC ]; then 
 		git clone $GITLOC $INSTALLLOC
+		cd $INSTALLLOC
+		git checkout dev
 	fi
 }
 

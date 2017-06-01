@@ -1,6 +1,6 @@
 Vagrant.configure("2") do |config|
 	config.vm.provider "virtualbox"
-	config.vm.box = "debian/jessie64"#"ubuntu/xenial64"
+	config.vm.box = "ubuntu/xenial64"
 	config.vm.synced_folder "~/git/ans-between/","/ans-between"
 	config.vm.provision "shell" , inline: "apt-get install gcc make python3-venv python3-pip libssl-dev -y"
 
