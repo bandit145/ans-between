@@ -7,6 +7,7 @@ import sys
 class db_mgm:
 	def __init__(self, dbdir):
 		if not os.path.isfile(dbdir+'database/db.json'):
+			os.mkdir(dbdir+'database')
 			file = open(dbdir+'database/db.json','w')
 			file.close()
 		self.db = TinyDB(dbdir+'database/db.json')
