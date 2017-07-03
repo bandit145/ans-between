@@ -12,7 +12,10 @@ function venv_install(){
 	pip3 install -r $INSTALLLOC"/requirements.txt"
 }
 function create_account(){
-	useradd ans-between
+	user=$(cat /etc/passwd | grep ans-between)
+	if [[ ! $user == *"ans-between"* ]]; then
+		useradd ans-between
+	fi
 }
 function create_log(){
 	mkdir /var/log/ans-between
@@ -21,9 +24,9 @@ function create_log(){
 
 #does installing celery in venv work for system?
 function place_configs(){
-	cp /opt/ans-between/setup/ans-between /etc/init.d/
-	cp /opt/ans-between/setup/celeryd /etc/init.d/
-	cp /opt/ans-between/setup/celeryd.conf /wherever
+	cp -f /opt/ans-between/setup/ans-between /etc/init.d/
+	cp -f /opt/ans-between/setup/celeryd /etc/init.d/ 
+	cp -f /opt/ans-between/setup/celeryd.conf /etc/default/celeryd
 	chmod +x /etc/init.d/ans-between
 	chmod +x /etc/init.d/celeryd
 }

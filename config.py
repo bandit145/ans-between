@@ -1,5 +1,5 @@
 #location of ansible playbooks
-location = '/opt/ans-between'
+location = '/opt/ans-between/tests/test_data'
 #host address local/127.0.0.1 for local or 0.0.0.0 for external use
 host = '127.0.0.1'
 #port to bind to

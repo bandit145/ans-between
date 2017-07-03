@@ -2,9 +2,13 @@ from tinydb import TinyDB, Query
 from tinydb.storages import MemoryStorage
 from src import logging
 import ast
+import os
 import sys
 class db_mgm:
 	def __init__(self, dbdir):
+		if not os.path.isfile(dbdir+'database/db.json'):
+			file = open(dbdir+'database/db.json','w')
+			file.close()
 		self.db = TinyDB(dbdir+'database/db.json')
 		self.output = self.db.table('output')
 		self.query = Query()

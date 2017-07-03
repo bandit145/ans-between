@@ -46,10 +46,10 @@ def run_job():
 			return response_build(400,{'error':'No playbook by that name in the database'})
 	except KeyError: #missing name or auth field
 		logging.info('[X] No name or auth contained in request')
-		return response_build(400,{'error':' No name or auth contained in request'})
+		return response_build(400,{'error':'No name or auth contained in request'})
 	except IndexError: #empty dict in request
 		logging.info('[X] Empty dict in params section of request')
-		return response_build(400,{'error':'empty dict in params section of request'})
+		return response_build(400,{'error':'Empty dict in params section of request'})
 
 @route('/tasks/:taskid', method='GET')
 def return_id(taskid):
